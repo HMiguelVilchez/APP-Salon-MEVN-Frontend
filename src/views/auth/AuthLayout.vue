@@ -5,6 +5,7 @@ const route = useRoute();
 const authRoutes = [
   { name: "register", text: "Crear Cuenta" },
   { name: "login", text: "Iniciar Sesión" },
+  { name: "home", text: "Iniciar Sesión" },
   { name: "forgot-password", text: "Olvidé mi password" },
 ];
 </script>
