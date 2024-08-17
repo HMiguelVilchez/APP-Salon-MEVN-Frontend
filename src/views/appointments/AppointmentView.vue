@@ -18,7 +18,7 @@ const disableDate = (date) => {
     date < today || 
     (date.getFullYear() === today.getFullYear() && date.getMonth() > today.getMonth()) ||
     date.getFullYear() > today.getFullYear() ||
-    [0, 6].includes(date.getDay()) // Deshabilita fines de semana
+    [].includes(date.getDay()) // Deshabilita fines de semana
   );
 };
 </script>
