@@ -26,6 +26,7 @@ const user = useUserStore();
           Mis Citas
         </RouterLink>
       </nav>
+      
     </div>
   </div>
   <main>

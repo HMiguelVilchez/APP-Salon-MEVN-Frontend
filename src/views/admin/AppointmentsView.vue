@@ -2,6 +2,7 @@
 import AdminAppointment from '../../components/AdminAppointment.vue'
 import { useUserStore } from '../../stores/user'
 import { computed, ref, watch } from 'vue'
+import axios from 'axios'
 
 const user = useUserStore()
 const selectedDate = ref(null)
@@ -30,8 +31,23 @@ const filteredAppointments = computed(() => {
 })
 
 // Función para manejar el cambio en la selección de fecha
-const handleDateChange = () => {
-    console.log('Fecha seleccionada:', selectedDate.value)
+const handleDateChange = async () => {
+    try {
+        console.log('Fecha seleccionada:', selectedDate.value)
+        if (!selectedDate.value) return
+        
+        const response = await axios.get(`http://localhost:4000/appointmentss`, {
+            params: {
+                date: selectedDate.value
+            }
+        })
+        
+        // Actualiza las citas del usuario con las citas obtenidas
+        user.userAppointments = response.data
+        
+    } catch (error) {
+        console.error('Error al obtener las citas:', error)
+    }
 }
 
 watch(selectedDate, handleDateChange)
