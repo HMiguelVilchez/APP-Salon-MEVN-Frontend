@@ -36,7 +36,7 @@ const handleDateChange = async () => {
         console.log('Fecha seleccionada:', selectedDate.value)
         if (!selectedDate.value) return
         
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/appointmentss`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}appointmentss`, {
             params: {
                 date: selectedDate.value
             },
