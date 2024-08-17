@@ -32,7 +32,7 @@ export const useUserStore = defineStore('user', () => {
     const logout = () => {
         localStorage.removeItem('AUTH_TOKEN')
         user.value = {}
-        router.push({ name: '/' })
+        router.push({ name: 'home' })
     }
     const getUserName = computed(() => user.value?.name ? user.value?.name : '')
 
