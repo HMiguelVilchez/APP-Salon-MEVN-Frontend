@@ -4,13 +4,13 @@ import AppointmentsLayout from '../views/appointments/AppointmentsLayout.vue'
 import AuthAPI from '../api/AuthAPI'
 
 const router = createRouter({
-  history: createWebHistory('/'),
+  history: createWebHistory(''),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
-    },
+      name: 'login',
+          component: () => import('../views/auth/LoginView.vue')
+        },
     {
       path: '/admin',
       name: 'admin',
