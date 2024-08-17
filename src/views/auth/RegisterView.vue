@@ -25,7 +25,7 @@ const handleSubmit = async ({ password_confirm, ...formData }) => {
 
 <template>
   <h1 class="text-6xl font-extrabold text-white text-center mt-10">
-    Crea una cuenta
+    Cruz Barber
   </h1>
   <p class="text-2xl text-white text-center my-5">
     Crea una cuenta en AppSalón
