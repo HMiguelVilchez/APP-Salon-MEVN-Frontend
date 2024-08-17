@@ -92,6 +92,11 @@ const router = createRouter({
           component: () => import('../views/auth/LoginView.vue')
         },
         {
+          path: 'login',
+          name: 'home',
+          component: () => import('../views/auth/HomeView.vue')
+        },
+        {
           path: 'olvide-password',
           name: 'forgot-password',
           component: () => import('../views/auth/ForgotPasswordView.vue')
