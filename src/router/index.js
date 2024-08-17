@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import AppointmentsLayout1 from '../views/appointments/AppointmentsLayout1.vue'
 import AppointmentsLayout from '../views/appointments/AppointmentsLayout.vue'
 import AuthAPI from '../api/AuthAPI'
 
@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('../views/admin/AppointmentsView.vue'),
+      component: AppointmentsLayout1,
       meta: { requiresAdmin: true },
       children: [
         {

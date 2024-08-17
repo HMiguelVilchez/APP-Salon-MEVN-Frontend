@@ -41,14 +41,7 @@ watch(selectedDate, handleDateChange)
     <p class="text-white text-lg mt-5">
         A continuación podrás administrar tus próximas citas
     </p>
-    <button
-                      type="button"
-                      class="bg-red-600 hover:bg-red-700 p-2 text-white uppercase text-xs font-extrabold rounded-lg"
-                      @click="user.logout"
-                  >
-                      Cerrar Sesión
-                  </button>
-
+    
     <!-- Selector de fecha -->
     <div class="mt-5">
         <label for="date" class="block text-white text-lg">Selecciona una fecha:</label>
