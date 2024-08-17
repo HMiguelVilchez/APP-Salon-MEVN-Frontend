@@ -36,10 +36,11 @@ const handleDateChange = async () => {
         console.log('Fecha seleccionada:', selectedDate.value)
         if (!selectedDate.value) return
         
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/appointmentss`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/appointments`, {
             params: {
                 date: selectedDate.value
-            }
+            },
+            withCredentials: true
         })
         
         // Actualiza las citas del usuario con las citas obtenidas
@@ -49,6 +50,7 @@ const handleDateChange = async () => {
         console.error('Error al obtener las citas:', error)
     }
 }
+
 
 watch(selectedDate, handleDateChange)
 </script>
