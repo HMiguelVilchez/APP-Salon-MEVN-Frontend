@@ -30,6 +30,11 @@ const user = useUserStore();
           class="p-3 text-gray-200 uppercase text-xs font-black rounded-lg bg-blue-700"
           >Nueva Cita</RouterLink
         >
+        <!-- Botón para crear un nuevo vale -->
+        <RouterLink
+          :to="{ name: 'new-voucher' }"
+          class="p-3 text-gray-200 uppercase text-xs font-black rounded-lg bg-green-700"
+        >Nuevo Vale</RouterLink>
       </nav>
     </div>
   </div>

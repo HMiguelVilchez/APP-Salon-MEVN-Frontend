@@ -13,13 +13,14 @@ export const useAppointmentStore = defineStore('appointments', () => {
     const time = ref('')
     const appointmentsByDate = ref([])
     const hours = ref([])
+    const vouchers = ref([]);
 
     const toast = inject('toast')
     const router = useRouter()
     const user = useUserStore()
 
     onMounted(() => {
-        const startHour = 8
+        const startHour = 7
         const endHour = 21
         for (let hour = startHour; hour <= endHour; hour++) {
             // Agregar la hora en punto
@@ -49,8 +50,9 @@ export const useAppointmentStore = defineStore('appointments', () => {
         services.value = appointment.services
         date.value = convertToDDMMYY(appointment.date)
         time.value = appointment.time
-        appointmentId.value = appointment._id
-    }
+        appointmentId.value = appointment._id,
+        vouchers.value = appointment.vouchers || []; // Asignar los vales si existen
+}
 
     function onServiceSelected(service) {
         if (services.value.some(selectedService => selectedService._id === service._id)) {
@@ -69,8 +71,9 @@ export const useAppointmentStore = defineStore('appointments', () => {
             services: services.value.map(service => service._id),
             date: convertToISO(date.value),
             time: time.value,
-            totalAmount: totalAmount.value
-        }
+            totalAmount: totalAmount.value,
+            vouchers: vouchers.value.map(voucher => voucher._id) // Incluir los IDs de los vales
+    }
 
         if (appointmentId.value) {
             try {

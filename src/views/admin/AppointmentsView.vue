@@ -4,15 +4,11 @@ import { useUserStore } from '../../stores/user'
 import { computed, ref, watch } from 'vue'
 import axios from 'axios'
 
+// Importar funciones para el formateo de fechas, si es necesario
+// import { format } from 'date-fns';
+
 const user = useUserStore()
 const selectedDate = ref(null)
-
-// Computed property para calcular el total de todas las citas
-const totalAmount = computed(() => {
-    return (user.userAppointments || []).reduce((acc, appointment) => {
-        return acc + (appointment.totalAmount || 0)
-    }, 0)
-})
 
 // Función para filtrar citas por fecha
 const filterAppointmentsByDate = (appointments, date) => {
@@ -30,27 +26,55 @@ const filteredAppointments = computed(() => {
     return filterAppointmentsByDate(user.userAppointments || [], selectedDate.value)
 })
 
+// Computed property para calcular el total de las citas del usuario
+const totalAppointments = computed(() => {
+    return (user.userAppointments || []).reduce((acc, appointment) => {
+        return acc + (appointment.totalAmount || 0)
+    }, 0)
+})
+
+// Computed property para calcular el total de los vales
+const totalVouchers = computed(() => {
+    return (user.userVouchers || []).reduce((acc, voucher) => {
+        return acc + (voucher.amount || 0)
+    }, 0)
+})
+
+// Computed property para calcular el total neto del día
+const totalNet = computed(() => {
+    return totalAppointments.value - totalVouchers.value
+})
+
 // Función para manejar el cambio en la selección de fecha
 const handleDateChange = async () => {
     try {
         console.log('Fecha seleccionada:', selectedDate.value)
         if (!selectedDate.value) return
         
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}appointmentss`, {
-            params: {
-                date: selectedDate.value
-            },
-            withCredentials: true
-        })
-        
+        const [appointmentsResponse, vouchersResponse] = await Promise.all([
+            axios.get(`${import.meta.env.VITE_API_URL}/appointmentss`, {
+                params: {
+                    date: selectedDate.value
+                },
+                withCredentials: true
+            }),
+            axios.get(`${import.meta.env.VITE_API_URL}/vouchers`, {
+                params: {
+                    date: selectedDate.value
+                },
+                withCredentials: true
+            })
+        ])
+
         // Actualiza las citas del usuario con las citas obtenidas
-        user.userAppointments = response.data
+        user.userAppointments = appointmentsResponse.data
+        // Actualiza los vales del usuario con los vales obtenidos
+        user.userVouchers = vouchersResponse.data
         
     } catch (error) {
-        console.error('Error al obtener las citas:', error)
+        console.error('Error al obtener las citas y vales:', error)
     }
 }
-
 
 watch(selectedDate, handleDateChange)
 </script>
@@ -88,14 +112,21 @@ watch(selectedDate, handleDateChange)
                     :appointment="appointment"
                 />
             </div>
-
-            <!-- Mostrar el total acumulado -->
+            
+            <!-- Mostrar el total de ingresos, total de vales y total neto del día -->
             <p class="text-white text-2xl text-right mt-10">
-                Total acumulado del Día: <span class="text-blue-500">{{ totalAmount }}</span>
+                Total de Ingresos: <span class="text-blue-500">{{ totalAppointments }}</span>
+            </p>
+            <p class="text-white text-2xl text-right">
+                Total de Vales: <span class="text-blue-500">{{ totalVouchers }}</span>
+            </p>
+            <p class="text-white text-2xl text-right">
+                Total Neto del Día: <span class="text-blue-500">{{ totalNet }}</span>
             </p>
         </div>
     </div>
 </template>
+
 
 
 

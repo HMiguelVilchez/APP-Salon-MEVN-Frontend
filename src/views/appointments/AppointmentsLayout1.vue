@@ -25,11 +25,17 @@ const user = useUserStore();
         >
           Mis Citas
         </RouterLink>
+        <RouterLink
+          :to="{ name: 'vouchers' }"
+          class="p-3 text-gray-200 uppercase text-xs font-black rounded-lg bg-blue-700"
+        >
+          Mostrar Vales
+        </RouterLink>
       </nav>
-      
     </div>
   </div>
   <main>
     <RouterView />
   </main>
 </template>
+

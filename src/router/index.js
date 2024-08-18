@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppointmentsLayout1 from '../views/appointments/AppointmentsLayout1.vue'
 import AppointmentsLayout from '../views/appointments/AppointmentsLayout.vue'
+import NewVoucher from '../views/appointments/NewVoucher.vue'
 import AuthAPI from '../api/AuthAPI'
 
 const router = createRouter({
@@ -21,6 +22,11 @@ const router = createRouter({
           path: '',
           name: 'admin-appointments',
           component: () => import('../views/admin/AppointmentsView.vue'),
+        },
+        {
+          path: '',
+          name: 'vouchers',
+          component: () => import('../views/admin/Vouchers.vue'),
         }
       ]
     },
@@ -49,7 +55,12 @@ const router = createRouter({
               name: 'appointment-details',
               component: () => import('../views/appointments/AppointmentView.vue')
             },
-          ]
+            {
+              path: '/vouchers/new',
+              name: 'new-voucher',
+              component: NewVoucher,
+            },
+           ]
         },
         {
           path: ':id/editar',
