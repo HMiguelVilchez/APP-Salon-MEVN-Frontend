@@ -52,7 +52,7 @@ const handleDateChange = async () => {
         if (!selectedDate.value) return
         
         const [appointmentsResponse, vouchersResponse] = await Promise.all([
-            axios.get(`${import.meta.env.VITE_API_URL}/appointmentss`, {
+            axios.get(`${import.meta.env.VITE_API_URL}appointmentss`, {
                 params: {
                     date: selectedDate.value
                 },
