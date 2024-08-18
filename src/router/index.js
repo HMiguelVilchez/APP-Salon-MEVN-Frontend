@@ -27,6 +27,12 @@ const router = createRouter({
           path: '',
           name: 'vouchers',
           component: () => import('../views/admin/Vouchers.vue'),
+        },
+        {
+          path: '/services',
+          name: 'manage-services',
+          component: () => import('../views/admin/ManageServices.vue'),
+          meta: { requiresAdmin: true }
         }
       ]
     },

@@ -31,6 +31,12 @@ const user = useUserStore();
         >
           Mostrar Vales
         </RouterLink>
+        <RouterLink
+  :to="{ name: 'manage-services' }"
+  class="p-3 text-gray-200 uppercase text-xs font-black rounded-lg bg-purple-700"
+>
+  Gestionar Servicios
+</RouterLink>
       </nav>
     </div>
   </div>
