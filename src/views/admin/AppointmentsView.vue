@@ -58,7 +58,7 @@ const handleDateChange = async () => {
                 },
                 withCredentials: true
             }),
-            axios.get(`${import.meta.env.VITE_API_URL}/vouchers`, {
+            axios.get(`${import.meta.env.VITE_API_URL}vouchers`, {
                 params: {
                     date: selectedDate.value
                 },

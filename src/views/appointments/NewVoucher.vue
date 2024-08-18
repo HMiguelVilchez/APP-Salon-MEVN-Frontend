@@ -10,7 +10,7 @@ const description = ref('')
 
 const saveVoucher = async () => {
   try {
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/vouchers`, {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}vouchers`, {
       amount: amount.value,
       date: date.value,
       description: description.value // Incluye la fecha seleccionada en la solicitud

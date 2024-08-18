@@ -33,7 +33,7 @@ const handleDateChange = async () => {
     if (!selectedDate.value) return;
 
     try {
-        const vouchersResponse = await axios.get(`${import.meta.env.VITE_API_URL}/vouchers`, {
+        const vouchersResponse = await axios.get(`${import.meta.env.VITE_API_URL}vouchers`, {
             params: { date: selectedDate.value },
             withCredentials: true
         });
@@ -50,7 +50,7 @@ const handleDateChange = async () => {
 const fetchVouchers = async () => {
   if (date.value) {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/vouchers`, {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}vouchers`, {
         params: { date: date.value },
         withCredentials: true
       });
