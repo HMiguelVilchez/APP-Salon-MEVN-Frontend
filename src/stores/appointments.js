@@ -3,13 +3,17 @@ import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 import AppointmentAPI from '../api/AppointmentAPI'
 import { convertToISO, convertToDDMMYY } from '../helpers/date'
-import { useUserStore } from '../stores/user'
+import { useUserStore } from '../stores/user1'
+
+
+
 
 export const useAppointmentStore = defineStore('appointments', () => {
     
 
     const selectedBarber = ref('')
     const appointmentId = ref('')
+    const phonecita = ref('')
     const services = ref([])
     const date = ref('')
     const time = ref('')
@@ -20,6 +24,7 @@ export const useAppointmentStore = defineStore('appointments', () => {
     const toast = inject('toast')
     const router = useRouter()
     const user = useUserStore()
+    const phone = useUserStore()
 
     onMounted(() => {
         const startHour = 8
@@ -60,6 +65,7 @@ export const useAppointmentStore = defineStore('appointments', () => {
         date.value = convertToDDMMYY(appointment.date)
         time.value = appointment.time
         selectedBarber.value = appointment.selectedBarber
+        phonecita.value = appointment.phonecita,
         appointmentId.value = appointment._id,
         vouchers.value = appointment.vouchers || []; // Asignar los vales si existen
 }
@@ -68,8 +74,8 @@ export const useAppointmentStore = defineStore('appointments', () => {
         if (services.value.some(selectedService => selectedService._id === service._id)) {
             services.value = services.value.filter(selectedService => selectedService._id !== service._id)
         } else {
-            if (services.value.length === 2) {
-                alert('Máximo 2 servicios')
+            if (services.value.length === 4) {
+                alert('Máximo 4 servicios')
                 return
             }
             services.value.push(service)
@@ -83,6 +89,7 @@ export const useAppointmentStore = defineStore('appointments', () => {
             time: time.value,
             totalAmount: totalAmount.value,
             selectedBarber: selectedBarber.value,
+            phonecita: phonecita.value,
             vouchers: vouchers.value.map(voucher => voucher._id) // Incluir los IDs de los vales
     }
 
@@ -115,7 +122,7 @@ export const useAppointmentStore = defineStore('appointments', () => {
         }
 
         clearAppoinmentData()
-        user.getUserAppointments()
+        user.getUserAppointments1()
 
         router.push({
             name: 'my_appointments'
@@ -144,7 +151,7 @@ export const useAppointmentStore = defineStore('appointments', () => {
                     message: data.msg,
                     type: 'success'
                 })
-                user.getUserAppointments()
+                user.getUserAppointments1()
             } catch (error) {
                 toast.open({
                     message: error.response.data.msg,

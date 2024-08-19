@@ -88,6 +88,7 @@ import { formatCurrency } from '../../helpers';
 
 const appointments = useAppointmentStore();
 const selectedBarber = ref('');
+const phonecita = ref('');
 const formatter = ref({
   date: 'DD/MM/YYYY',
   month: 'MMM',
@@ -127,6 +128,7 @@ const saveAppointment = async () => {
   const appointmentData = {
     services: appointments.services,
     date: appointments.date,
+    phonecita: appointments.phone,
     time: appointments.time,
     totalAmount: appointments.totalAmount,
     selectedBarber: appointments.selectedBarber, // Asegúrate que este campo es un ObjectId

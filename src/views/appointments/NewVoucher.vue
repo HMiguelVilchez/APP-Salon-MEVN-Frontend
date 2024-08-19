@@ -31,19 +31,20 @@ const saveVoucher = async () => {
   <div>
     <h1 class="text-3xl text-white font-bold mb-4">Crear Nuevo Vale</h1>
     <form @submit.prevent="saveVoucher" class="space-y-4">
-      <div>
-        <label for="description" class="block text-lg text-white">Comentario</label>
-        <textarea id="description" v-model="description" class="w-full p-2 rounded"></textarea>
+       <div>
+        <label for="date" class="block text-lg text-white">Fecha</label>
+        <input type="date" id="date" v-model="date" class="w-full p-2 rounded" />
       </div>
       <div>
         <label for="amount" class="block text-lg text-white">Monto</label>
         <input type="number" id="amount" v-model="amount" class="w-full p-2 rounded" />
       </div>
       <div>
-        <label for="date" class="block text-lg text-white">Fecha</label>
-        <input type="date" id="date" v-model="date" class="w-full p-2 rounded" />
+        <label for="description" class="block text-lg text-white">Comentario</label>
+        <textarea id="description" v-model="description" class="w-full p-2 rounded"></textarea>
       </div>
       <button type="submit" class="bg-green-600 hover:bg-green-700 text-white p-3 rounded">Guardar Vale</button>
     </form>
   </div>
 </template>
+

@@ -16,6 +16,9 @@ export default {
     getUserAppointments(userId) {
         return api.get(`/users/${userId}/appointments`)
     },
+    getUserAppointments1(userId) {
+        return api.get(`/userss/${userId}/appointments`)
+    },
     getById(id) {
         return api.get(`/appointments/${id}`)
     },

@@ -12,6 +12,15 @@ const props = defineProps({
   },
 });
 
+// Objeto de mapeo para barberos
+const barberMapping = {
+  '66b63e2afc053ca48e515452': 'Cruz', // ObjectId para Cruz
+  '66b63e2afc053ca48e515453': 'David', // ObjectId para David
+};
+
+// Obtener el nombre del barbero usando el ObjectId
+const barberName = barberMapping[props.appointment.selectedBarber];
+
 const confirmCancel = () => {
   if (confirm("¿Estás seguro de que deseas cancelar esta cita?")) {
     appointments.cancelAppointment(props.appointment._id);
@@ -26,6 +35,11 @@ const confirmCancel = () => {
       <span class="font-light">{{ displayDate(appointment.date) }}</span>
       Hora:
       <span class="font-light">{{ appointment.time }}</span>
+      Telefono:
+      <span class="font-light">{{ appointment.phonecita }}</span>
+      <br />
+      Barbero:
+      <span class="font-light">{{ barberName }}</span>
     </p>
     <p class="text-lg font-black">Servicios solicitados en la cita</p>
     <div v-for="service in appointment.services" :key="service.id">
@@ -55,5 +69,3 @@ const confirmCancel = () => {
     </div>
   </div>
 </template>
-
-

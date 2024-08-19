@@ -7,6 +7,8 @@ defineProps({
         type: Object
     }
 })
+
+
 </script>
 
 <template>
@@ -19,6 +21,7 @@ defineProps({
         <p class="text-gray-500 font-black">
             Nombre Cliente: <span class="font-light">{{ appointment.user.name }}</span>
             Email: <span class="font-light">{{ appointment.user.email }}</span>
+            Numero: <span class="font-light">{{ appointment.phonecita }}</span>
         </p>
 
         <p class="text-lg font-black">Servicios Solicitados en la cita</p>

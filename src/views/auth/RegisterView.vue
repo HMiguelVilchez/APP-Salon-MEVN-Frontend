@@ -14,7 +14,6 @@ const handleSubmit = async ({ password_confirm, ...formData }) => {
     });
     reset("registerForm");
   } catch (error) {
-    // console.log(error.response.data.msg);
     toast.open({
       message: error.response.data.msg,
       type: "error",
@@ -61,6 +60,17 @@ const handleSubmit = async ({ password_confirm, ...formData }) => {
       }"
     />
     <FormKit
+      type="text"
+      label="Número de Teléfono"
+      name="phone"
+      placeholder="Tu Número de Teléfono"
+      validation="required|length:10"
+      :validation-messages="{
+        required: 'El número de teléfono es obligatorio',
+        length: 'El número de teléfono debe tener 10 dígitos',
+      }"
+    />
+    <FormKit
       type="password"
       label="Password"
       name="password"
@@ -71,7 +81,6 @@ const handleSubmit = async ({ password_confirm, ...formData }) => {
         length: 'El password debe contener al menos 8 caracteres',
       }"
     />
-
     <FormKit
       type="password"
       label="Repetir Password"
