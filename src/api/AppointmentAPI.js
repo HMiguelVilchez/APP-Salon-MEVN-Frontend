@@ -1,5 +1,6 @@
 import api from "../lib/axios";
 
+
 export default {
     create(data) {
 
@@ -7,6 +8,10 @@ export default {
     },
     getByDate(date) {
         return api.get(`/appointments?date=${date}`)
+    },
+    getByDate2(date, selectedBarber = '') {
+        // Añade el parámetro del barbero a la URL de la solicitud
+        return api.get(`/appointmentsss?date=${date}&barber=${selectedBarber}`);
     },
     getUserAppointments(userId) {
         return api.get(`/users/${userId}/appointments`)

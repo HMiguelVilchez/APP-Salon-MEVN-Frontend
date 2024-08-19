@@ -6,7 +6,9 @@ import { convertToISO, convertToDDMMYY } from '../helpers/date'
 import { useUserStore } from '../stores/user'
 
 export const useAppointmentStore = defineStore('appointments', () => {
+    
 
+    const selectedBarber = ref('')
     const appointmentId = ref('')
     const services = ref([])
     const date = ref('')
@@ -20,7 +22,7 @@ export const useAppointmentStore = defineStore('appointments', () => {
     const user = useUserStore()
 
     onMounted(() => {
-        const startHour = 7
+        const startHour = 8
         const endHour = 21
         for (let hour = startHour; hour <= endHour; hour++) {
             // Agregar la hora en punto
@@ -36,20 +38,28 @@ export const useAppointmentStore = defineStore('appointments', () => {
     watch(date, async () => {
         time.value = ''
         if (date.value === '') return
-        const { data } = await AppointmentAPI.getByDate(date.value)
-
-        if (appointmentId.value) {
-            appointmentsByDate.value = data.filter(appointment => appointment._id !== appointmentId.value)
-            time.value = data.filter(appointment => appointment._id === appointmentId.value)[0]?.time || ''
-        } else {
-            appointmentsByDate.value = data
+    
+        try {
+            const { data } = await AppointmentAPI.getByDate2(date.value, selectedBarber.value)
+    
+            if (appointmentId.value) {
+                appointmentsByDate.value = data.filter(appointment => appointment._id !== appointmentId.value)
+                time.value = data.filter(appointment => appointment._id === appointmentId.value)[0]?.time || ''
+            } else {
+                appointmentsByDate.value = data
+            }
+        } catch (error) {
+            console.error('Error fetching appointments:', error)
+            // Puedes agregar más lógica aquí, como mostrar un mensaje de error al usuario.
         }
     })
+    
 
     function setSelectedAppointment(appointment) {
         services.value = appointment.services
         date.value = convertToDDMMYY(appointment.date)
         time.value = appointment.time
+        selectedBarber.value = appointment.selectedBarber
         appointmentId.value = appointment._id,
         vouchers.value = appointment.vouchers || []; // Asignar los vales si existen
 }
@@ -72,6 +82,7 @@ export const useAppointmentStore = defineStore('appointments', () => {
             date: convertToISO(date.value),
             time: time.value,
             totalAmount: totalAmount.value,
+            selectedBarber: selectedBarber.value,
             vouchers: vouchers.value.map(voucher => voucher._id) // Incluir los IDs de los vales
     }
 
@@ -109,6 +120,13 @@ export const useAppointmentStore = defineStore('appointments', () => {
         router.push({
             name: 'my_appointments'
         })
+    }
+    function handleBarberChange(barber) {
+        selectedBarber.value = barber
+        // Limpiar los servicios al cambiar el barbero si es necesario
+        services.value = []
+         date.value = ''
+         time.value = ''
     }
 
     function clearAppoinmentData() {
@@ -175,6 +193,8 @@ export const useAppointmentStore = defineStore('appointments', () => {
     })
 
     return {
+        selectedBarber,
+        handleBarberChange,
         services,
         date,
         hours,
