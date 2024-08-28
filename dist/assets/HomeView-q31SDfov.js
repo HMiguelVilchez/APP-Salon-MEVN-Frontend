@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{c as o,o as t,a as c}from"./main-D-xxpp6D.js";const r={},s=c("h1",{class:"text-3xl"},"Cruz Barber",-1),a=[s];function n(_,i){return t(),o("main",null,a)}const f=e(r,[["render",n]]);export{f as default};
